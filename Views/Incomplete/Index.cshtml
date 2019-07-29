@@ -1,0 +1,177 @@
+﻿@using UrnBMS.Models;
+@using PagedList.Mvc
+@using PagedList
+@model IPagedList<UrnForm>
+
+@{ ViewBag.Title = "Incomplete Work Orders"; }
+
+@if (User.Identity.IsAuthenticated && User.IsInRole("Super-Admin") || User.IsInRole("Admin") || User.IsInRole("Manager")
+    || User.IsInRole("Fix Department"))
+{
+	<div class="content">
+		<br />
+
+		<div class="pull-left">
+			@using (Html.BeginForm("export", "incomplete", null, FormMethod.Post, new { @class = "form-horizontal" }))
+			{
+			@Html.AntiForgeryToken()
+				<button type="submit" class="btn btn-sm btn-default">
+					<i class="fa fa-file-excel-o"></i> Export to Excel
+				</button>
+			}
+		</div>
+		<div class="pull-right col-md-4">
+			@using (Html.BeginForm("index", "incomplete", FormMethod.Get))
+			{
+			<div class="input-group">
+				<input type="text" name="q" id="q" placeholder="Search" class="form-control" />
+				<span class="input-group-btn">
+					<button class="btn btn-default" type="submit">
+						<i class="fa fa-search"></i>
+					</button>
+				</span>
+			</div>
+			}
+		</div>
+		<br />
+		<br />
+		<table class="table table-bordered table-hover table-responsive">
+			<tr class="warning">
+				<th>Work Order (Rr #)</th>
+				<th>To</th>
+				<th>From</th>
+				<th>Quantity</th>
+				<th>Part #</th>
+				<th>Why Incomplete</th>
+				<th>Status</th>
+				<th>WO Info</th>
+				@if (User.IsInRole("Manager") || User.IsInRole("Super-Admin") || User.IsInRole("Fix Department"))
+				{
+				<th>Ship?</th>
+				}
+			</tr>
+			@foreach (UrnForm urn in Model.Where(f => f.Status == "Incomplete"))
+			{
+				var myModal = "urn-modal" + urn.Id;
+				if (Model.Count() == 0)
+				{
+				<tr>
+					<td class="text-center text-info">
+						There are no incomplete work orders in the yet.
+					</td>
+				</tr>
+				}
+				else
+				{
+				<tr>
+
+					<td>
+						@urn.RrNumber
+					</td>
+					<td>
+						@urn.To
+					</td>
+					<td>
+						@urn.From
+					</td>
+					<td>
+						@urn.Quantity
+					</td>
+					<td>
+						@urn.AssyNumber
+					</td>
+					<td>
+						@urn.ReasonForIncompletion
+					</td>
+					<td>
+						<strong class="text-danger">@urn.Status</strong>
+					</td>
+					<td>
+						<a href="~/home/info/@urn.Id" class="btn btn-info btn-sm">
+							<i class="glyphicon glyphicon-question-sign"></i> Info
+						</a>
+					</td>
+					@if (User.IsInRole("Manager") || User.IsInRole("Super-Admin") || User.IsInRole("Fix Department"))
+					{
+					<td>
+						<a href="#" role="button" data-target="#@myModal" data-toggle="modal" class="btn btn-success btn-xs">
+							<i class="fa fa-check"></i> Ship
+						</a>
+						<!---confirm Modal-->
+						<div class="modal fade" id="@myModal" tabindex="-1">
+							<div class="modal-dialog">
+								<div class="modal-content">
+									<div class="modal-header">
+										<h4 class="modal-title">Are we ready for shipment?</h4>
+										<button type="button" class="close" data-dismiss="modal">&times;</button>
+									</div>
+
+									@using (Html.BeginForm("ship", "completed", new { id = urn.Id }, FormMethod.Post, new { id = urn.Id }))
+									{
+									@Html.AntiForgeryToken()
+
+										<div class="modal-body text-center text-muted">
+
+											<div class="row">
+
+												<h3 class="text-muted">IS WORK ORDER: <span class="text-danger">@urn.RrNumber</span><br /> RESOLVED?</h3>
+
+												<p class="text-danger text-center"> How was the issue resolved??</p>
+												<div class="form-group col-md-offset-2 col-md-8">
+													<textarea name="issueResolution" id="issueResolution" required class="form-control" placeholder="Serial Number resolved etc..." rows="5"></textarea>
+												</div>
+
+											</div>
+
+										</div>
+
+										<div class="modal-footer">
+											<div class="form-group">
+												<input type="submit" value="Yes" class="btn btn-success" />&nbsp;
+												<a href="~/urnforms/index" data-dismiss="modal" class="btn btn-default">No</a>
+											</div>
+										</div>
+									}
+								</div>
+							</div>
+						</div>
+					</td>
+					}
+				</tr>
+				}
+			}
+		</table>
+		<br />
+		<div class="row" style="width:100%; clear: both; padding: 1em;">
+			Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+			@Html.PagedListPager(Model, page => Url.Action("index", new { page }))
+		</div>
+	</div>
+}
+else
+{
+	<div class="col-md-offset-3">
+
+		<div class="col-md-7" style="margin-top: 3em;">
+
+			<div class="panel panel-danger raised">
+
+				<div class="panel-heading">
+					<h4 class="text-center">
+						Access Denied!!!
+					</h4>
+				</div>
+
+				<div class="panel-body">
+					<p class="text-muted">
+						You're unauthorized to view this section. Please talk to your superior if you have any query.
+					</p>
+				</div>
+
+			</div>
+
+		</div>
+
+	</div>
+}

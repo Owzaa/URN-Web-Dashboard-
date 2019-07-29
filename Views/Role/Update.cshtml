@@ -1,0 +1,55 @@
+﻿@using UrnBMS.Models;
+@model IEnumerable<ApplicationUser>
+
+@{
+    ViewBag.Title = "Update Role";
+}
+
+<h2>Update Role</h2>
+
+<hr />
+<div class="panel panel-default">
+	<div class="panel-heading">
+		<strong>Employees in this role</strong>
+	</div>
+
+	<table class="panel-body table table-striped table-hover">
+
+		<tr>
+			<th>Employee Number</th>
+			<th>First Name</th>
+			<th>Last Name</th>
+			<th>Email</th>
+			<th></th>
+		</tr>
+
+		@if (Model.Count() == 0)
+		{
+			<tr>
+				<td colspan="5" class="text-center">
+					There are currently no users in this role...
+				</td>
+			</tr>
+		}
+		else
+		{
+			foreach (var member in Model)
+			{
+				<tr>
+					<td>@member.UserName</td>
+					<td>@member.FirstName</td>
+					<td>@member.LastName</td>
+					<td>@member.Email</td>
+					<td>
+						@using (Html.BeginForm("remove", "role", new { id = member.Id, roleId = ViewBag.roleId }, FormMethod.Post, null))
+						{
+							<button type="submit" class="btn btn-danger">
+								<i class="fa fa-trash"></i> Remove
+							</button>
+						}
+					</td>
+				</tr>
+				}
+			}
+	</table>
+</div>

@@ -1,0 +1,154 @@
+﻿@using UrnBMS.Models
+@model DashboardViewModels
+
+@{ ViewBag.Title = "Welcome"; }
+
+@section styles{
+	<style>
+		.large {
+			font-size: 22pt;
+			font-weight: bolder;
+		}
+	</style>
+}
+
+<!-- Page Heading -->
+<div class="row">
+	<div class="col-lg-12">
+		<h1 class="page-header">
+			Bytes Managed Solutions<br />
+			<small>Inventory Management</small>
+		</h1>
+	</div>
+</div>
+<!-- /.row -->
+<!-- User specific statistics -->
+<div class="row">
+
+	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+		<h3>User <strong>@User.Identity.Name</strong> Work Order Data</h3>
+		<hr />
+	</div>
+
+	<div class="col-md-6">
+
+		<div class="panel panel-info">
+			<div class="panel-heading text-center">
+				<h4>
+					<i class="fa fa-check-square-o"></i> Work Order(s) Completed:
+					<br />
+					<br />
+					<span class="large">@Model.CompleteWorkOrders</span>
+				</h4>
+			</div>
+		</div>
+
+	</div>
+
+	<div class="col-md-6">
+
+		<div class="panel panel-success">
+			<div class="panel-heading text-center">
+				<h4>
+					<i class="fa fa-fw fa-tags"></i> Work Order(s) Shipped:
+					<br />
+					<br />
+					<span class="large">@Model.ShippedWorkOrders</span>
+				</h4>
+			</div>
+		</div>
+
+	</div>
+</div>
+
+<!-- Overall Work Order Data -->
+@if (User.Identity.IsAuthenticated && User.IsInRole("Super-Admin") || User.IsInRole("Admin") || User.IsInRole("Manager"))
+{
+	<div class="row">
+
+		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+			<hr />
+			<h3>Overall Work Order Data</h3>
+			<hr />
+		</div>
+
+		<div class="col-md-4">
+			<div class="panel panel-default">
+				<div class="panel-heading text-center">
+					<h4>
+						<i class="fa fa-sort-numeric-asc"></i> Total Work Orders:
+						<br />
+						<br />
+						<span class="large">@Model.TotalWorkOrders</span>
+					</h4>
+				</div>
+			</div>
+		</div>
+
+		<div class="col-md-4">
+			<div class="panel panel-danger">
+				<div class="panel-heading text-center">
+					<h4>
+						<i class="fa fa-list-ol"></i> Work Orders Queued:
+						<br />
+						<br />
+                        <a href="~/queue"><span class="large">@Model.AllQueuedWorkOrders</span></a>
+					</h4>
+				</div>
+			</div>
+		</div>
+
+		<div class="col-md-4">
+			<div class="panel panel-info">
+				<div class="panel-heading text-center">
+					<h4>
+						<i class="fa fa-check-square-o"></i> Total Completed:
+						<br />
+						<br />
+                        <a href="~/completed"><span class="large">@Model.AllCompletedWorkOrders</span> </a>
+					</h4>
+				</div>
+			</div>
+		</div>
+
+		<div class="col-md-4">
+			<div class="panel panel-danger">
+				<div class="panel-heading text-center">
+					<h4>
+						<i class="fa fa-cart-arrow-down"></i> Total Backorders:
+						<br />
+						<br />
+                        <a href="~/backorder"><span class="large">@Model.AllBackOrders</span></a>
+					</h4>
+				</div>
+			</div>
+		</div>
+
+		<div class="col-md-4">
+			<div class="panel panel-warning">
+				<div class="panel-heading text-center">
+                    <h4>
+                        <i class="fa fa-fw fa-warning"></i> Total Incomplete:
+                        <br />
+                        <br />
+                        <a href="~/incomplete"><span class="large">@Model.AllIncompleteWorkOrders</span></a>
+                    </h4>
+				</div>
+			</div>
+		</div>
+
+		<div class="col-md-4">
+			<div class="panel panel-success">
+				<div class="panel-heading text-center">
+					<h4>
+						<i class="fa fa-tags"></i> Total Shipped:
+						<br />
+						<br />
+                        <a href="~/shipped"><span class="large">@Model.AllShippedWorkOrders</span></a>
+					</h4>
+				</div>
+			</div>
+		</div>
+
+	</div>
+}

@@ -1,0 +1,49 @@
+﻿@using UrnBMS.Models
+@model IEnumerable<ApplicationUser>
+
+@{ ViewBag.Title = "User Administration"; }
+
+<div class="row">
+	@Html.ActionLink("New Employee", "new", null, new { @class = "btn btn-default" })
+</div>
+<br />
+<div class="panel panel-default">
+	<div class="panel-heading text-center">
+		<strong>Employee User Accounts</strong>
+	</div>
+	<table class="table table-striped table-hover">
+		<tr>
+			<th>Employee Id</th>
+			<th>Email</th>
+			<th>First Name</th>
+			<th>Last Name</th>
+			<th></th>
+		</tr>
+		@if (Model.Count() == 0)
+		{
+		<tr>
+			<td colspan="3" class="text-center">No Employee User Accounts Yet...</td>
+		</tr>
+		}
+		else
+		{
+			foreach (ApplicationUser user in Model)
+			{
+			<tr>
+				<td>@user.UserName</td>
+				<td>@user.Email</td>
+				<td>@user.FirstName</td>
+				<td>@user.LastName</td>
+				<td>
+					@using (Html.BeginForm("delete", "user", new { id = user.Id, @class = "btn-group" }))
+					{
+						@Html.ActionLink("Edit", "update", new { id = user.Id }, new { @class = "btn btn-primary btn-xs" })
+						<button class="btn btn-danger btn-xs" type="submit">Delete</button>
+					}
+				</td>
+			</tr>
+			}
+		}
+	</table>
+	<br />
+</div>

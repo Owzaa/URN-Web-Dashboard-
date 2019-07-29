@@ -1,0 +1,80 @@
+﻿@using UrnBMS.Models
+@model LoginViewModel
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login | URN BMS</title>
+
+    <!-- Bootstrap & Custom CSS -->
+    @Styles.Render("~/Content/css")
+    <style>
+        .container-fluid {
+            background: linear-gradient(rgba(0, 0, 0, .5),rgba(0, 0, 0, .5)), url("../../Content/img/BMS.Logo.jpg");
+            background-attachment: fixed;
+            background-size: cover;
+            background-position: top;
+            background-repeat: no-repeat;
+            height: 100vh;
+            margin: 0;
+            padding: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container-fluid">
+        <div class="thumbnail col-md-offset-3 col-md-6" style="margin-top: 12%; padding: 1em;">
+            <section id="loginForm">
+                @using (Html.BeginForm("login", "account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <h4>BMS Login</h4>
+                    <hr />
+                    @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.EmployeeId, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-7">
+                            @Html.TextBoxFor(m => m.EmployeeId, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.EmployeeId, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-7">
+                            @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <div class="checkbox">
+                                @Html.CheckBoxFor(m => m.RememberMe)
+                                @Html.LabelFor(m => m.RememberMe)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <button type="submit" class="btn btn-success">
+                                <i class="fa fa-unlink"></i> Login
+                            </button>
+                            &nbsp;
+                            @Html.ActionLink("Forgot password?", "forgotpassword", "account", null, new { @class = "btn btn-primary" })
+                        </div>
+                    </div>
+                }
+            </section>
+        </div>
+    </div>
+
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+    }
+</body>
+</html>

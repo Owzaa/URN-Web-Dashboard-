@@ -1,0 +1,403 @@
+﻿@model UrnBMS.Models.UrnForm
+
+@{ ViewBag.Title = "Work Order Info"; }
+
+@section styles
+{
+    <style>
+        @@media print {
+            #print, #btn-back {
+                display: none;
+            }
+        }
+    </style>
+}
+
+<h2 class="text-center text-muted">Urgent Repair Notice Form</h2>
+<br />
+<div class="row">
+    <div class="col-md-16 col-sm-12 col-xs-12">
+        <table class="table table-bordered table-condensed table-responsive">
+            <tr>
+                <th>
+                    Document Name
+                </th>
+                <td colspan="3">
+                    Urgent Repair Notice
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    Form Number
+                </th>
+                <td>
+                    FORM0011
+                </td>
+                <th>
+                    Revision
+                </th>
+                <td>
+                    06
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    Department
+                </th>
+                <td>
+                    Managed Services Operations
+                </td>
+                <th>
+                    Index
+                </th>
+                <td>
+                    IMC
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <a class="pull-right btn btn-sm btn-default" onclick="window.print()" href="JavaScript:void()" id="print">
+            <i class="glyphicon glyphicon-print"> Print</i>
+        </a>
+    </div>
+</div>
+<div>
+    <div class="row">
+        <div class="col-lg-4 col-md-4">
+            <h4>Urgent Repair Notice for Work Order: </h4><strong class="text-danger">@Model.RrNumber</strong>
+        </div>
+
+        <div class="col-lg-4 col-md-4">
+            <h4>Completed By: </h4><strong class="text-danger">@Model.CompletedBy</strong>
+        </div>
+
+        <div class="col-lg-4 col-md-4">
+
+            <h4>RA Number:</h4>
+            <strong class="text-danger">@Model.RaNumber</strong>
+        </div>
+    </div>
+
+    <hr />
+    <table class="table table-bordered">
+        <tr>
+            <td>
+                <strong>
+                    @Html.DisplayNameFor(model => model.To)
+                </strong>
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.To)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <strong>
+                    @Html.DisplayNameFor(model => model.From)
+                </strong>
+            </td>
+            <td>@Html.DisplayFor(model => model.From)</td>
+        </tr>
+        <tr>
+            <td>
+                <strong>
+                    @Html.DisplayNameFor(model => model.Branch)
+                </strong>
+            </td>
+            <td>@Html.DisplayFor(model => model.Branch)</td>
+        </tr>
+        <tr>
+            <td>
+                <strong>
+                    @Html.DisplayNameFor(model => model.Customer)
+                </strong>
+            </td>
+            <td>@Html.DisplayFor(model => model.Customer)</td>
+        </tr>
+        <tr>
+            <td>
+                <strong>
+                    @Html.DisplayNameFor(model => model.CsrName)
+                </strong>
+            </td>
+            <td>@Html.DisplayFor(model => model.CsrName)</td>
+        </tr>
+        <tr>
+            <td>
+                <strong>
+                    @Html.DisplayNameFor(model => model.AssyName)
+                </strong>
+            </td>
+            <td>@Html.DisplayFor(model => model.AssyName)</td>
+        </tr>
+        <tr>
+            <td>
+                <strong>
+                    @Html.DisplayNameFor(model => model.AssyNumber)
+                </strong>
+            </td>
+            <td>@Html.DisplayFor(model => model.AssyNumber)</td>
+        </tr>
+        <tr>
+            <td>
+                <strong>
+                    @Html.DisplayNameFor(model => model.DateEntered)
+                </strong>
+            </td>
+            <td>@Html.DisplayFor(model => model.DateEntered)</td>
+        </tr>
+        <tr>
+            <td>
+                <strong>
+                    @Html.DisplayNameFor(model => model.AuthorityName)
+                </strong>
+            </td>
+            <td>@Html.DisplayFor(model => model.AuthorityName)</td>
+        </tr>
+        <tr>
+            <td>
+                <strong>
+                    @Html.DisplayNameFor(model => model.ModelName)
+                </strong>
+            </td>
+            <td>@Html.DisplayFor(model => model.ModelName)</td>
+        </tr>
+        <tr>
+            <td>
+                <strong>
+                    @Html.DisplayNameFor(model => model.Description)
+                </strong>
+            </td>
+            <td>@Html.DisplayFor(model => model.Description)</td>
+        </tr>
+        <tr>
+            <td>
+                <strong>
+                    @Html.DisplayNameFor(model => model.Priority)
+                </strong>
+            </td>
+            <td>@Html.DisplayFor(model => model.Priority)</td>
+        </tr>
+        <tr>
+            <td>
+                <strong>
+                    @Html.DisplayNameFor(model => model.Quantity)
+                </strong>
+            </td>
+            <td>@Html.DisplayFor(model => model.Quantity)</td>
+        </tr>
+        <tr>
+            <td>
+                <strong>
+                    @Html.DisplayNameFor(model => model.RrNumber)
+                </strong>
+            </td>
+            <td>@Html.DisplayFor(model => model.RrNumber)</td>
+        </tr>
+        <tr>
+            <td>
+                <strong>
+                    @Html.DisplayNameFor(model => model.SystemDowntime)
+                </strong>
+            </td>
+            <td>@Html.DisplayFor(model => model.SystemDowntime)</td>
+        </tr>
+        <tr>
+            <td>
+                <strong>
+                    @Html.DisplayNameFor(model => model.CriticalTime)
+                </strong>
+            </td>
+            <td>@Html.DisplayFor(model => model.CriticalTime)</td>
+        </tr>
+        <tr>
+            <td>
+                <strong>
+                    @Html.DisplayNameFor(model => model.Urgency)
+                </strong>
+            </td>
+            <td>@Html.DisplayFor(model => model.Urgency)</td>
+        </tr>
+        <tr>
+            <td>
+                <strong>
+                    @Html.DisplayNameFor(model => model.OvertimeRequired)
+                </strong>
+            </td>
+            <td>@Html.DisplayFor(model => model.OvertimeRequired)</td>
+        </tr>
+        <tr>
+            <td>
+                <strong>
+                    @Html.DisplayNameFor(model => model.Stock)
+                </strong>
+            </td>
+            <td>@Html.DisplayFor(model => model.Stock)</td>
+        </tr>
+        <tr>
+            <td>
+                <strong>
+                    @Html.DisplayNameFor(model => model.Replacement)
+                </strong>
+            </td>
+            <td>@Html.DisplayFor(model => model.Replacement)</td>
+        </tr>
+        <tr>
+            <td>
+                <strong>
+                    @Html.DisplayNameFor(model => model.QtyInRwc)
+                </strong>
+            </td>
+            <td>@Html.DisplayFor(model => model.QtyInRwc)</td>
+        </tr>
+        <tr>
+            <td>
+                <strong>
+                    @Html.DisplayNameFor(model => model.Comments)
+                </strong>
+            </td>
+            <td>@Html.DisplayFor(model => model.Comments)</td>
+        </tr>
+        <tr>
+            <td>
+                <strong>
+                    @Html.DisplayNameFor(model => model.AllRelevantNumbersChecked)
+                </strong>
+            </td>
+            <td>@Html.DisplayFor(model => model.AllRelevantNumbersChecked)</td>
+        </tr>
+        <tr>
+            <td>
+                <strong>
+                    @Html.DisplayNameFor(model => model.StoreRackChecked)
+                </strong>
+            </td>
+            <td>@Html.DisplayFor(model => model.StoreRackChecked)</td>
+        </tr>
+        <tr>
+            <td>
+                <strong>
+                    @Html.DisplayNameFor(model => model.StoreTrolleyChecked)
+                </strong>
+            </td>
+            <td>@Html.DisplayFor(model => model.StoreTrolleyChecked)</td>
+        </tr>
+        <tr>
+            <td>
+                <strong>
+                    @Html.DisplayNameFor(model => model.NoUnpackedStock)
+                </strong>
+            </td>
+            <td>@Html.DisplayFor(model => model.NoUnpackedStock)</td>
+        </tr>
+        <tr>
+            <td>
+                <strong>
+                    @Html.DisplayNameFor(model => model.ReworkTrolleyChecked)
+                </strong>
+            </td>
+            <td>@Html.DisplayFor(model => model.ReworkTrolleyChecked)</td>
+        </tr>
+        <tr>
+            <td>
+                <strong>
+                    @Html.DisplayNameFor(m => m.TimeCompleted)
+                </strong>
+            </td>
+            <td>@Html.DisplayFor(m => m.TimeCompleted)</td>
+        </tr>
+        <tr>
+            <td>
+                <strong>
+                    @Html.DisplayNameFor(model => model.Status)
+                </strong>
+            </td>
+            <td>@Html.DisplayFor(model => model.Status)</td>
+        </tr>
+
+        <tr>
+            <td>
+                <strong>
+                    Completed By
+                </strong>
+            </td>
+            <td>@Model.CompletedBy</td>
+        </tr>
+
+        <tr>
+            <td>
+                <strong>Submitted By</strong>
+            </td>
+            <td>
+                @Model.SubmittedBy
+            </td>
+        </tr>
+
+
+        <tr>
+            <td>
+                <strong>
+                    @Html.DisplayNameFor(model => model.ReasonForIncompletion)
+                </strong>
+            </td>
+            <td>@Html.DisplayFor(model => @Model.ReasonForIncompletion)</td>
+        </tr>
+
+        <tr>
+            <td>
+                <strong>
+
+                    @Html.DisplayNameFor(model => model.RaNumber)
+                </strong>
+            </td>
+            <td>@Html.DisplayFor(model => @model.RaNumber)</td>
+
+        </tr>
+
+        <tr>
+
+            <td>
+                <strong>@Html.DisplayNameFor(field => field.SerialNumber)</strong>
+            </td>
+
+            <td>
+                @Html.DisplayFor(field => field.SerialNumber)
+            </td>
+
+        </tr>
+
+        <tr>
+
+            <td>
+                <strong>@Html.DisplayNameFor(f => f.ResolutionStatus)</strong>
+            </td>
+
+            <td>
+                @Html.DisplayFor(f => f.ResolutionStatus)
+            </td>
+
+        </tr>
+
+        <tr>
+
+            <td>
+                <strong>@Html.DisplayNameFor(f => f.ReasonForBackorder)</strong>
+            </td>
+
+            <td>
+                @Html.DisplayFor(f => f.ReasonForBackorder)
+            </td>
+
+        </tr>
+
+    </table>
+</div>
+<p>
+    <a href="@Request.UrlReferrer" class="btn btn-sm btn-default" id="btn-back">
+        <i class="glyphicon glyphicon-arrow-left"></i> Back
+    </a>
+</p>
