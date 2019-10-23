@@ -99,7 +99,7 @@ namespace UrnBMS.Controllers
 
 			TempData["message"] = $"Work order { urnForm.RrNumber } has successfully been shipped.";
 
-			return RedirectToAction("index", "home", null);
+			return RedirectToAction("index", "completed", null);
 		}
 
 		// POST: ~/Completed/Export/
